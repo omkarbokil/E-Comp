@@ -4,13 +4,15 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgb(246, 246, 246);
+  color: #f6f6f6;
   background-color: #0d0d0d;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  scroll-behavior: smooth;
 }
 body{
   margin: 0;
@@ -19,10 +21,62 @@ body{
 p{
   margin: 0;
 }
+a{
+    color: #f6f6f6;
+}
 
 @mixin flex-between{
     display: flex;
     justify-content: space-between;
+}
+
+@mixin section-title($fs : 32px){
+    font-size: $fs;
+    font-weight: 700;
+}
+
+@mixin section-cards($grid-col){
+    margin-top: 2rem;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat($grid-col, 1fr);
+}
+
+@mixin section-card($padding, $border-color, $rounded, $text-align){
+    background-color: #ffffff11;
+    padding: $padding;
+    border: 1px solid $border-color;
+    text-align: center;
+    transition: all 0.2s;
+    border-radius: $rounded;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: $text-align;
+}
+
+@mixin section-card-hover{
+    transform: translateY(-5px);
+    background-color: #ffffff18;
+    cursor: pointer;
+}
+
+@mixin section-card-img{
+    border-radius: 10px 10px 0 0;
+    object-fit: contain;
+    object-position: center;
+    height: 200px;
+    background-color: white;
+}
+
+@mixin sc-price{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+// Styling
+.container{
+    padding-inline : 12rem;
 }
 
 .navbar{
@@ -32,13 +86,17 @@ p{
     align-items: center;
     font-size: larger;
     font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 500;
 
     .nav-menu-list{
         display: flex;
         gap: 40px;
         font-weight: 400;
         font-size: 14px;
-        p{
+        a{
+            display: block;
             padding: 5px 15px;
             border-radius: 20px;
             transition: all 0.2s;
@@ -88,6 +146,7 @@ section{
     }
 }
 
+// Browse All Accessories
 .browse-btn{
     margin-block: 4rem;
     .btn{
@@ -100,6 +159,399 @@ section{
         &:hover{
             background-color: #4c4c4c;
             cursor: pointer;
+        }
+    }
+}
+
+#new-launches, #featured, #offers, #categories{
+    scroll-margin-top: 5rem;
+}
+
+.categories-section, .featured-section, .nl-section, .brands-section{
+    margin-top: 8rem;
+}
+
+// Categories Section
+.categories-section{
+    text-align: left;
+    p{
+        @include section-title();
+    }
+    
+    .categories-card{
+        @include section-cards(5);
+        
+        .category-card{
+            @include section-card(20px, #0071e35e, 0, center);
+            white-space: nowrap;
+
+            &:hover{
+                @include section-card-hover();
+            }
+        }
+    }
+}
+
+// New Launches Section
+.nl-section{
+    text-align: left;
+    p{
+        @include section-title();
+    }
+
+    .nl-cards{
+        @include section-cards(3);
+
+        .nl-card{
+            @include section-card(40px, #ffffff00, 10px, center);
+            font-size: 34px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            transition: 0.5s all;
+            white-space: nowrap;
+
+            p{
+                font-weight: 500;
+            }
+
+            button{
+                padding: 15px 40px;
+                background-color: #ffffff0c;
+                border: 0;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 20px;
+            }
+
+            &:hover{
+                transform: scale(1.02);
+            }
+            
+            img{
+                @include section-card-img()
+            }
+        }
+    }
+}
+
+// Featured Section
+.featured-section{
+    text-align: left;
+    p{
+        @include section-title();
+    }
+
+    .featured-cards{
+        @include section-cards(4);
+
+        .featured-card{
+            @include section-card(0px, #ffffff20, 10px, left);
+
+            p{
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .sc-price{
+                @include sc-price();
+            }
+
+            .sc-details{
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .sc-action-btns{
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+
+                button{
+                    padding: 10px;
+                    background-color: #ffffff0c;
+                    border: 0;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            }
+
+            &:hover{
+                @include section-card-hover();
+            }
+            
+            img{
+                @include section-card-img()
+            }
+        }
+    }
+}
+
+// Offers Section
+.offers-section{
+    margin-top: 8rem;
+    background-color: #ffffff11;
+    padding: 50px;
+
+    p{
+        font-size: 54px;
+    }
+
+    .offer-imgs{
+        display: flex;
+        gap: 50px;
+        justify-content: center;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+
+        img{
+            object-fit: contain;
+            width: 200px;
+            transition: 0.5s all;
+
+            &:hover{
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+// Brands Section
+.brands-section{
+    text-align: left;
+    p{
+        @include section-title();
+    }
+
+    .brands-imgs{
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        img{
+            width: 100px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            transition: 0.5s all;
+
+            &:hover{
+                filter: grayscale(0);
+            }
+        }
+    }
+       
+}
+
+// Footer
+footer{
+    background-color: #ffffff11;
+    padding: 2rem 8rem;
+    margin-top: 5rem;
+
+    p{
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .footer-content{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .footer-links{
+            display: flex;
+            gap: 100px;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+
+            li:first-of-type{
+                font-weight: 600;
+                color: #f6f6f6;
+            }
+
+            li:nth-child(2){
+                margin-top: 0.5rem;
+            }
+
+            li{
+                padding-block: 3px;
+
+                a{
+                    color: #ffffff96;
+                    text-decoration: none;
+
+                    &:hover{
+                        color: #f6f6f6;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width : 1124px) {
+    .container{
+        padding-inline : 2rem;
+    }
+}
+@media (max-width : 1024px) {
+    .categories-section{
+        .categories-card{
+            @include section-cards(4);
+        }
+    }
+}
+@media (max-width : 992px) {
+    .navbar{
+        justify-content: center;
+
+        .nav-menu-list{
+            display: none;
+        }
+
+        .nav-icons{
+            display: none;
+        }
+    }
+
+    .main-title{
+        font-size: 50px;
+    }
+
+    .categories-section{
+        .categories-card{
+            @include section-cards(3);
+        }
+    }
+
+    .nl-section{
+        .nl-cards{
+            .nl-card{
+                p{
+                    font-size: 20px;
+                }
+                button{
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .featured-section{
+        .featured-cards{
+            @include section-cards(2);
+        }
+    }
+
+    footer{
+        .footer-content{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            gap: 20px;
+        }
+    }
+}
+@media (max-width : 768px) {
+    .nl-section{
+        .nl-cards{
+            .nl-card{
+                @include section-card(20px, #ffffff00, 10px, center);
+                gap: 1rem;
+    
+                button{
+                    padding: 10px 20px;
+                }
+            }
+        }
+    }
+
+    .brands-section{
+        .brands-imgs{
+            justify-content: center;
+            gap: 30px;
+        }
+    }
+
+    footer{
+    
+        .footer-content{
+            .footer-links{
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    }
+}
+@media (max-width : 576px) {
+
+    .main-title{
+        font-size: 35px;
+        padding-inline: 25px;
+    }
+
+    .categories-section, .nl-section, .featured-section, .brands-section {
+        p{
+            @include section-title(24px);
+        }
+    }
+
+    .categories-section, .featured-section, .nl-section, .brands-section, .offers-section{
+        margin-top: 4rem;
+    }
+
+    .categories-section{
+        .categories-card{
+            @include section-cards(2);
+        }
+    }
+
+    .nl-section{
+        .nl-cards{
+            @include section-cards(1);
+        }
+    }
+
+    .featured-section{
+        .featured-cards{
+            @include section-cards(1);
+        }
+    }
+
+    .offers-section{
+        p{
+            font-size: 24px;
+        }
+
+        .offer-imgs{
+            gap: 20px;
+            flex-direction: column;
+            align-items: center;
+    
+            img{
+                width: 130px;
+            }
+        }
+    }
+
+    footer{
+        padding: 2rem;
+    }
+}
+@media (max-width : 370px) {
+    .categories-section{
+        .categories-card{
+            @include section-cards(1);
         }
     }
 }

@@ -6,11 +6,11 @@ function Header() {
       <nav className='navbar'>
           <p>E-Comp</p>
           <div className='nav-menu-list'>
-            <p>Home</p>
-            <p>Collections</p>
-            <p>Offers</p>
-            <p>New Launch</p>
-            <p>Orders</p>
+            <a href="#">Home</a>
+            <a href="#new-launches">New Launch</a>
+            <a href="#featured">Products</a>
+            <a href="#offers">Offers</a>
+            <a href="#">Orders</a>
           </div>
           <div className='nav-icons'>
             <span class="material-symbols-outlined">
