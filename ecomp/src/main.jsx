@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom'
 import './index.scss'
 import Layout from './components/Layout'
-import Homepage from './Pages/Homepage'
+import Homepage from './pages/Homepage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
